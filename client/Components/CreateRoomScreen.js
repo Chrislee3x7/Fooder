@@ -23,9 +23,6 @@ const CreateRoomScreen = ({ navigation }) => {
 
       </View>
       <View className="px-8 justify-center grow">
-
-        <Text className="text-center" variant="titleSmall">Room Code:</Text>
-        <Text className="mb-4 mx-4 text-center" variant="headlineLarge">RDQJJ</Text>
         <View className="mb-4 ml-4 mr-4">
           <TextInput
             autoCapitalize="none"

@@ -11,7 +11,8 @@ const LobbyScreen = ({ navigation }) => {
   return (
     <View className="justify-center bg-white grow" style={{paddingTop: insets.top}}>
       <View className="h-2/3 bg-white">
-        
+        <Text className="text-center" variant="titleSmall">Room Code:</Text>
+        <Text className="mb-4 mx-4 text-center" variant="headlineLarge">RDQJJ</Text>
       </View>
       <View className="flex grow rounded-t-xl justify-between items-center py-6 bg-red-300" style={{paddingBottom: insets.bottom}}>
         <View className="bg-white p-2 rounded-2xl">

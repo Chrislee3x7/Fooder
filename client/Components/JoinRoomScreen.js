@@ -32,6 +32,16 @@ const HomeScreen = ({ navigation }) => {
           />
         </View>
 
+        <View className="mb-4 ml-4 mr-4">
+          <TextInput
+            autoCapitalize="none"
+            blurOnSubmit
+            inputMode="text"
+            mode='outlined'
+            label='Username'
+          />
+        </View>
+
         <Button
           className="mx-2 my-4 pl-8 pr-8"
           mode='contained-tonal'

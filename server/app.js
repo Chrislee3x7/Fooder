@@ -19,8 +19,11 @@ app.use(cors());
 app.use('/api/room', roomRoutes);
 app.use('/api/user', userRoutes);
 
-// MongoDB Connection
-mongoose.connect(process.env.MONGO_URI)
+// connect to database before starting server
+mongoose.connect(process.env.MONGO_URI, {
+  // 'fooder' lines up with database name on MongoAtlas
+  dbName: 'fooder'
+})
   .then(() => console.log('Connected to MongoDB'))
   .catch((err) => console.error(err));
 

@@ -4,6 +4,7 @@ const cors = require('cors');
 const mongoose = require('mongoose');
 const roomRoutes = require('./routes/rooms');
 const userRoutes = require('./routes/users');
+const yelpRoutes = require('./routes/yelp');
 const http = require('http');
 const { Server } = require('socket.io');
 
@@ -18,6 +19,7 @@ app.use(cors());
 // Routes
 app.use('/api/room', roomRoutes);
 app.use('/api/user', userRoutes);
+app.use('/api/yelp', yelpRoutes);
 
 // connect to database before starting server
 mongoose.connect(process.env.MONGO_URI, {

@@ -17,7 +17,7 @@ const HomeScreen = ({ navigation }) => {
             onPress={() => navigation.navigate("CreateRoom")}>Create Room</Button>
 
           <Button className="mx-2 my-4 pl-8 pr-8" mode='contained-tonal' 
-            onPress={() => onLoginPress()}>Join Room</Button>
+            onPress={() => navigation.navigate("JoinRoom")}>Join Room</Button>
         </View> 
     </View>
   )

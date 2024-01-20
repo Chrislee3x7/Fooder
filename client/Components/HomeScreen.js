@@ -5,32 +5,17 @@ import { Button, Text, TextInput } from 'react-native-paper';
 const HomeScreen = () => {
 
   return (
-    <View className="mt-12 ml-8 mr-8">
-      <Text className="mt-6 mb-4 mx-4" variant="headlineLarge">Name</Text>
-      <View className="mb-4 ml-4 mr-4">
-        <TextInput
-          autoCapitalize="none"
-          blurOnSubmit
-          inputMode="email"
-          mode={'outlined'}
-          label='Email'
-        />
-      </View>
-      <View className="mb-4 ml-4 mr-4">
-        <TextInput
-          autoCapitalize="none"
-          blurOnSubmit
-          mode={'outlined'}
-          label='Password'
-        />
-      </View>
-  
-      <View className="my-4 flex-row">
-        <Button className="mx-2 grow" mode='contained' 
-          onPress={() => onLoginPress()}>Login</Button>
-      </View>
-      {/* <Button className="mx-4 self-end" mode='text'
-        onPress={() => navigation.navigate('Register')}>I'm new here!</Button> */}
+    <View className="mt-5 h-screen">
+        <View className="flex h-1/2">
+
+        </View>
+        <View className="flex grow pl-8 pr-8">
+          <Button className="mx-2 my-4" mode='contained' 
+            onPress={() => onLoginPress()}>Create Room</Button>
+
+          <Button className="mx-2 my-4 pl-8 pr-8" mode='contained-tonal' 
+            onPress={() => onLoginPress()}>Join Room</Button>
+        </View> 
     </View>
   )
 }

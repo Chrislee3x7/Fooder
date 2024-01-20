@@ -19,12 +19,6 @@ const HomeScreen = ({ navigation }) => {
           <Text>Go Back</Text>
 
         </TouchableOpacity>
-        {/* <Button
-          icon="chevron-left"
-          iconColor="black"
-          size={50}
-          onPress={() => console.log('Pressed')}
-        >Back</Button> */}
 
       </View>
       <View className="flex grow pl-8 pr-8">

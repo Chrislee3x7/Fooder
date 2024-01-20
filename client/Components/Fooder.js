@@ -6,6 +6,7 @@ import HomeScreen from './HomeScreen';
 import CreateRoomScreen from './CreateRoomScreen';
 import JoinRoomScreen from './JoinRoomScreen'
 import LobbyScreen from './LobbyScreen';
+import QuestionsScreen from  './QuestionsScreen';
 
 
 const Fooder = () => {
@@ -21,6 +22,7 @@ const Fooder = () => {
       <Stack.Screen name="CreateRoom" component={CreateRoomScreen} />
       <Stack.Screen name="JoinRoom" component={JoinRoomScreen} />
       <Stack.Screen name="Lobby" component={LobbyScreen} />
+      <Stack.Screen name="Questions" component={QuestionsScreen} />
     </Stack.Navigator>
   )
 }

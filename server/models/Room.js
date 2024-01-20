@@ -11,6 +11,11 @@ const RoomSchema = new mongoose.Schema({
         required: true,
         default: []
     },
+    isStarted: {
+        type: Boolean,
+        required: true,
+        default: false
+    }
 });
 
 module.exports = mongoose.model('Room', RoomSchema);

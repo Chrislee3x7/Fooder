@@ -18,11 +18,19 @@ const LobbyScreen = ({ navigation }) => {
           <Text className="text-center" variant="headlineMedium">PeppyCloud3x7</Text>
         </View>
 
-        <TouchableOpacity className="justify-center pb-4">
-          <View className="rounded-full h-28 w-28 bg-white items-center justify-center">
-            <Text variant="headlineLarge">GO!</Text>
-          </View>
-        </TouchableOpacity>
+        <View className="justify-center flex-row space-x-8 ">
+
+          <TouchableOpacity className="pb-4" onPress={() => {navigation.goBack()}}>
+            <View className="rounded-full h-28 w-28 bg-red-400 items-center justify-center">
+              <Text variant="headlineSmall">Close Room</Text>
+            </View>
+          </TouchableOpacity>
+          <TouchableOpacity className="pb-4">
+            <View className="rounded-full h-28 w-28 bg-white items-center justify-center">
+              <Text className="text-center" variant="headlineLarge">GO!</Text>
+            </View>
+          </TouchableOpacity>
+        </View>
         {/* <Button className="" mode='contained' 
           onPress={() => navigation.navigate('Home')}>Start!</Button> */}
       </View>

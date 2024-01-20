@@ -19,12 +19,6 @@ const HomeScreen = ({ navigation }) => {
           <Text>Go Back</Text>
 
         </TouchableOpacity>
-        {/* <Button
-          icon="chevron-left"
-          iconColor="black"
-          size={50}
-          onPress={() => console.log('Pressed')}
-        >Back</Button> */}
 
       </View>
       <View className="flex grow pl-8 pr-8">
@@ -42,7 +36,7 @@ const HomeScreen = ({ navigation }) => {
           className="mx-2 my-4 pl-8 pr-8"
           mode='contained-tonal'
           // labelStyle={{}}
-          onPress={() => navigation.navigate("JoinRoom")}
+          onPress={() => {}}
         >Join Room
         </Button>
       </View>

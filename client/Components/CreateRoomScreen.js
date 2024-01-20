@@ -10,9 +10,10 @@ const CreateRoomScreen = ({ navigation }) => {
 
   return (
     <View className="px-8 bg-blue-400 justify-center grow" style={{paddingTop: insets.top, paddingBottom: insets.bottom}}>
+      <View className="grow"/>
       <Text className="text-center" variant="titleSmall">Room Code:</Text>
-      <Text className="mb-4 mx-4 text-center" variant="headlineLarge">RDQJJ</Text>
-      <View className="mb-4 ml-4 mr-4">
+      <Text className="mb-4 text-center" variant="headlineLarge">RDQJJ</Text>
+      <View className="mb-4">
         <TextInput
           autoCapitalize="none"
           blurOnSubmit
@@ -21,9 +22,10 @@ const CreateRoomScreen = ({ navigation }) => {
           label='Username'
         />
       </View>
-      <View className="justify-center">
-        <Button className="my-4 mx-2" mode='contained' 
-          onPress={() => navigation.navigate('Home')}>Start Room</Button>
+      <View className="grow"/>
+      <View className="flex justify-center">
+        <Button className="" mode='contained' 
+          onPress={() => navigation.navigate('Lobby')}>Start Room</Button>
       </View>
     </View>
   )

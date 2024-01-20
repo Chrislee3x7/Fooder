@@ -5,6 +5,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import HomeScreen from './HomeScreen';
 import CreateRoomScreen from './CreateRoomScreen';
 import JoinRoomScreen from './JoinRoomScreen'
+import LobbyScreen from './LobbyScreen';
 
 
 const Fooder = () => {
@@ -18,7 +19,8 @@ const Fooder = () => {
       }}>
       <Stack.Screen name="Home" component={HomeScreen} />
       <Stack.Screen name="CreateRoom" component={CreateRoomScreen} />
-      <Stack.Screen name="JoinRoom" component={JoinRoomScreen} />
+      <Stack.Screen name="JoinRoom" component={HomeScreen} />
+      <Stack.Screen name="Lobby" component={LobbyScreen} />
     </Stack.Navigator>
   )
 }

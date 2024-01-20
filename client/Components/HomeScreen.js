@@ -1,8 +1,9 @@
+import { NavigationContainer } from '@react-navigation/native';
 import React, { useState } from 'react';
 import { View } from 'react-native';
 import { Button, Text, TextInput } from 'react-native-paper';
 
-const HomeScreen = () => {
+const HomeScreen = ({ navigation }) => {
 
   return (
     <View className="mt-12 ml-8 mr-8">
@@ -27,7 +28,7 @@ const HomeScreen = () => {
   
       <View className="my-4 flex-row">
         <Button className="mx-2 grow" mode='contained' 
-          onPress={() => onLoginPress()}>Login</Button>
+          onPress={() => navigation.navigate('CreateRoom')}>Login</Button>
       </View>
       {/* <Button className="mx-4 self-end" mode='text'
         onPress={() => navigation.navigate('Register')}>I'm new here!</Button> */}

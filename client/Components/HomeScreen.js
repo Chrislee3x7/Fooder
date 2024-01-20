@@ -2,11 +2,13 @@ import { NavigationContainer } from '@react-navigation/native';
 import React, { useState } from 'react';
 import { View } from 'react-native';
 import { Button, Text, TextInput } from 'react-native-paper';
+import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
-const HomeScreen = ({ navigation }) => {
+const HomeScreen = () => {
+  const insets = useSafeAreaInsets();
 
   return (
-    <View className="mt-5 h-screen">
+    <View className="grow bg-blue-400" style={{paddingTop: insets.top, paddingBottom: insets.bottom}}>
         <View className="flex h-1/2">
 
         </View>

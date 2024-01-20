@@ -6,6 +6,8 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
 const CreateRoomScreen = ({ navigation }) => {
 
+  const [username, setUsername] = useState('');
+
   const insets = useSafeAreaInsets();
 
   return (
@@ -27,6 +29,8 @@ const CreateRoomScreen = ({ navigation }) => {
           <TextInput
             autoCapitalize="none"
             blurOnSubmit
+            value={username}
+            onChangeText={(text) => {setUsername(text)}}
             inputMode="text"
             mode='outlined'
             label='Username'

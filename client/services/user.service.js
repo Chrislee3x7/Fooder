@@ -27,7 +27,6 @@ class UserService {
   async createRoom() {
     // create room
     const res = await axios.post(`${API_URL}/room/create`);
-    console.log(res.data);
     const value = await SecureStore.getItemAsync('user');
     const user = JSON.parse(value);
     
@@ -38,30 +37,31 @@ class UserService {
     }
 
     user.roomCode = res.data.roomCode;
-    console.log(user, "NEW USER NEW CODE");
     try {
       // console.log(user);
       await SecureStore.setItemAsync("user", JSON.stringify(user));
-      return true;
+      console.log(user, "user before join!!!!");
+      await this.joinRoom();
     } catch (error) {
       console.error("couldnt save data :(((((", error);
       return false;
     }
     // join creator of room
-    await this.joinRoom()
   }
 
   async joinRoom() {
     try {
       const value = await SecureStore.getItemAsync('user');
       const user = JSON.parse(value);
+      console.log(user)
       if (user !== null) {
         // We have data!!
         console.log(user);
       }
       const roomCode = user.roomCode
       const userId = user._id
-      console.log(await axios.post(`${API_URL}/room/join`, { roomCode: roomCode, userId: userId }));
+      const res = await axios.post(`${API_URL}/room/join`, { roomCode: roomCode, userId: userId });
+      console.log(res.data);
     } catch (error) {
       console.error("couldnt retrieve data :(", error);
       // Error retrieving data

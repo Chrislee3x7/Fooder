@@ -3,10 +3,18 @@ import React, { useState } from 'react';
 import { View, TouchableOpacity } from 'react-native';
 import { Button, Text, TextInput, Icon } from 'react-native-paper';
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
+import UserService from '../services/user.service';
 
 
 const JoinRoomScreen = ({ navigation }) => {
   const insets = useSafeAreaInsets();
+
+  const [roomCode, setRoomCode] = useState('');
+
+  const onJoinRoomPress = async () => {
+    await UserService.joinRoom(roomCode);
+    navigation.navigate('Lobby');
+  }
 
   return (
     <View className="grow bg-blue-400" style={{ paddingTop: insets.top, paddingBottom: insets.bottom }}>
@@ -27,6 +35,7 @@ const JoinRoomScreen = ({ navigation }) => {
           <TextInput
             autoCapitalize="none"
             blurOnSubmit
+            value={roomCode}
             inputMode="text"
             mode='outlined'
             label='Room Code'
@@ -47,7 +56,7 @@ const JoinRoomScreen = ({ navigation }) => {
           className="mx-2 my-4 pl-8 pr-8"
           mode='contained-tonal'
           // labelStyle={{}}
-          onPress={() => navigation.navigate('Lobby')}
+          onPress={() => onJoinRoomPress()}
         >Join Room
         </Button>
       </View>

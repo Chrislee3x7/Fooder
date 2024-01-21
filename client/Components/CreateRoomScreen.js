@@ -20,7 +20,7 @@ const CreateRoomScreen = ({ navigation }) => {
     // create a room and join current user
     await UserService.createRoom();
 
-    // navigation.navigate('Lobby')
+    // navigation.navigate('Lobby');
   }
 
   return (

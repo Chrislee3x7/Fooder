@@ -50,7 +50,7 @@ const CreateRoomScreen = ({ navigation }) => {
 
       </View>
       <View className="px-8 justify-center grow">
-        <View className="mb-4 mx-2 bg-white pb-4 pt-3 px-4 rounded-2xl">
+        <View className="shadow-md mb-4 mx-2 bg-white pb-4 pt-3 px-4 rounded-2xl">
           <TextInput
             autoCapitalize="none"
             blurOnSubmit
@@ -62,7 +62,7 @@ const CreateRoomScreen = ({ navigation }) => {
           />
         </View>
         <View className="justify-center">
-          <Button className="my-4 mx-2" mode='contained'
+          <Button className="shadow-md my-4 mx-2" mode='contained'
             style={{backgroundColor: '#EFEFA7', padding: 8, justifyContent: 'center'}} 
             labelStyle={{color: '#000000', fontSize: 16}}
             onPress={() => onStartRoomPressed()}>Start Room</Button>

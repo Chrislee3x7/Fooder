@@ -13,9 +13,9 @@ const JoinRoomScreen = ({ navigation }) => {
   const [username, setUsername] = useState('');
   
   const onJoinRoomPress = async () => {
-    console.log(roomCode);
+    await UserService.createUser(username);
     await UserService.joinRoom(roomCode);
-    navigation.navigate('Lobby', {roomCode: roomCode, isRoomCreator: false});
+    navigation.navigate('Lobby', {username: username, roomCode: roomCode, isRoomCreator: false});
   }
 
   return (
@@ -40,7 +40,7 @@ const JoinRoomScreen = ({ navigation }) => {
 
       </View>
       <View className="flex grow pl-8 pr-8">
-        <View className="mb-4 mx-2 bg-white pb-2 pt-3 px-2 rounded-2xl">
+        <View className="shadow-md mb-4 mx-2 bg-white pb-2 pt-3 px-2 rounded-2xl">
           <View className="mb-2 mx-2">
             <TextInput
               autoCapitalize="none"
@@ -61,13 +61,13 @@ const JoinRoomScreen = ({ navigation }) => {
               mode='outlined'
               label='Username'
               value={username}
-              onChangeText={text => {setUsername(text)}}
+              onChangeText={(text) => {setUsername(text)}}
             />
           </View>
         </View>
 
         <TouchableOpacity onPress={() => onJoinRoomPress()}>
-          <View className="mx-2 my-4 p-4 rounded-2xl" style={{backgroundColor: '#EFEFA7'}}>
+          <View className="shadow-md mx-2 my-4 p-4 rounded-2xl" style={{backgroundColor: '#EFEFA7'}}>
             <Text className="text-center" variant="titleMedium">Join Room</Text>
           </View>
         </TouchableOpacity>

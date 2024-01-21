@@ -10,9 +10,9 @@ import { ScrollView } from 'react-native-gesture-handler';
 // import { mdiCurrencyUsd } from '@mdi/js';
 
 const VetoScreen = ({ route, navigation }) => {
-  
+
   const insets = useSafeAreaInsets();
-  
+
   const restaurants = route.params.restaurants;
 
   const [toggleState, setToggleState] = useState(
@@ -51,32 +51,31 @@ const VetoScreen = ({ route, navigation }) => {
         </TouchableOpacity>
 
       </View>
-      
-      <View className="px-8 h-1/2">
+      <View className="px-8 grow">
         <Text className="mb-4 mx-4 text-center" variant="headlineLarge">Veto 3</Text>
         <ScrollView
-          // style={{marginBottom: 40}}>
-          >
+        // style={{marginBottom: 40}}>
+        >
           <View className="gap-y-3">
-          {restaurants.map(restaurant => (
-            <TouchableOpacity className="shadow-lg rounded-2xl p-4"
-              style={{backgroundColor: toggleState[restaurant.id] ? '#69b0d6' : '#eac0c0'}}
-              onPress={() => handleToggle(restaurant.id)}
-              key={restaurant.id}>
-              <Text variant="headlineSmall" >{restaurant.name}</Text>
-            </TouchableOpacity>
-          ))}
+            {restaurants.map(restaurant => (
+              <TouchableOpacity className="shadow-lg rounded-2xl p-4"
+                style={{ backgroundColor: toggleState[restaurant.id] ? '#69b0d6' : '#eac0c0' }}
+                onPress={() => handleToggle(restaurant.id)}
+                key={restaurant.id}>
+                <Text variant="headlineSmall" >{restaurant.name}</Text>
+              </TouchableOpacity>
+            ))}
           </View>
         </ScrollView>
       </View>
       <View className="px-8 py-4">
-      <TouchableOpacity
-            className="mx-2 my-4 pl-8 pr-8"
-            onPress={() => onContinuePress()}>
-            <View className="shadow-md mx-2 my-4 p-4 rounded-2xl" style={{backgroundColor: '#f1dd76'}}>
-              <Text className="text-center" variant="titleMedium">Continue</Text>
-            </View>
-          </TouchableOpacity >
+        <TouchableOpacity
+          className="mx-2 my-4 pl-8 pr-8"
+          onPress={() => onContinuePress()}>
+          <View className="shadow-md mx-2 my-4 p-4 rounded-2xl" style={{ backgroundColor: '#f1dd76' }}>
+            <Text className="text-center" variant="titleMedium">Continue</Text>
+          </View>
+        </TouchableOpacity >
       </View>
     </View>
   )

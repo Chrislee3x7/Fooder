@@ -31,7 +31,7 @@ const CreateRoomScreen = ({ navigation }) => {
   }
 
   return (
-    <View className=" bg-blue-400 grow" style={{ paddingTop: insets.top, paddingBottom: insets.bottom }}>
+    <View className=" grow" style={{ paddingTop: insets.top, paddingBottom: insets.bottom, backgroundColor: "#FBF9F0" }}>
       <View className="flex h">
         <TouchableOpacity className="flex-row ml-4 items-center" onPress={() => navigation.goBack()}>
           <Icon
@@ -53,7 +53,8 @@ const CreateRoomScreen = ({ navigation }) => {
 
       </View>
       <View className="px-8 justify-center grow">
-        <View className="shadow-md mb-4 mx-2 bg-white pb-4 pt-3 px-4 rounded-2xl">
+        <View className="shadow-md mb-4 mx-2 pb-4 pt-3 px-4 rounded-2xl"
+          style={{backgroundColor: "#69B0D6"}}>
           <TextInput
             autoCapitalize="none"
             blurOnSubmit
@@ -65,7 +66,7 @@ const CreateRoomScreen = ({ navigation }) => {
           />
         </View>
         <TouchableOpacity disabled={!buttonEnabled} onPress={() => onStartRoomPressed()}>
-          <View className="shadow-md mx-2 my-4 p-4 rounded-2xl" style={{backgroundColor: '#EFEFA7'}}>
+          <View className="shadow-md mx-2 my-4 p-4 rounded-2xl" style={{backgroundColor: '#F1DD76'}}>
             <Text className="text-center" variant="titleMedium">Start Room</Text>
           </View>
         </TouchableOpacity>

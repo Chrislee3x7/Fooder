@@ -13,7 +13,7 @@ const JoinRoomScreen = ({ navigation }) => {
   const [username, setUsername] = useState('');
   
   const onJoinRoomPress = async () => {
-    console.log(roomCode);
+    await UserService.createUser(username);
     await UserService.joinRoom(roomCode);
     navigation.navigate('Lobby', {username: username, roomCode: roomCode, isRoomCreator: false});
   }
@@ -61,7 +61,7 @@ const JoinRoomScreen = ({ navigation }) => {
               mode='outlined'
               label='Username'
               value={username}
-              onChangeText={text => {setUsername(text)}}
+              onChangeText={(text) => {setUsername(text)}}
             />
           </View>
         </View>

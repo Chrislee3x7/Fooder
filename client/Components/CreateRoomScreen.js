@@ -2,13 +2,26 @@ import { NavigationContainer } from '@react-navigation/native';
 import React, { useState } from 'react';
 import { View, TouchableOpacity } from 'react-native';
 import { Button, Text, TextInput, Icon } from 'react-native-paper';
-import { useSafeAreaInsets } from 'react-native-safe-area-context'
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import UserService from '../services/user.service';
 
 const CreateRoomScreen = ({ navigation }) => {
 
   const [username, setUsername] = useState('');
 
   const insets = useSafeAreaInsets();
+
+  const onStartRoomPressed = async () => {
+    // first create a user
+    if (!username) {
+      return;
+    }
+    await UserService.createUser(username);
+    // create a room and join current user
+    await UserService.createRoom();
+
+    // navigation.navigate('Lobby')
+  }
 
   return (
     <View className=" bg-blue-400 grow" style={{ paddingTop: insets.top, paddingBottom: insets.bottom }}>
@@ -38,7 +51,7 @@ const CreateRoomScreen = ({ navigation }) => {
         </View>
         <View className="justify-center">
           <Button className="my-4 mx-2" mode='contained'
-            onPress={() => navigation.navigate('Lobby')}>Start Room</Button>
+            onPress={() => onStartRoomPressed()}>Start Room</Button>
         </View>
       </View>
 

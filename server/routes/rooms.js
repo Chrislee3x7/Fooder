@@ -59,7 +59,7 @@ router.post('/join', async (req, res) => {
 
       
       // Find the room and add the user to it
-      const room = await Room.findOne({ code: roomCode });
+      const room = await Room.findOne({ roomCode: roomCode });
       if (!room) {
         return res.status(404).send('Room not found');
       }

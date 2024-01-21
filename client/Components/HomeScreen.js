@@ -7,6 +7,9 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context'
 const HomeScreen = ({ navigation }) => {
   const insets = useSafeAreaInsets();
 
+  const [userId, setUserId] = useState('');
+  const [roomCode, setRoomCode] = useState('');
+
   return (
     <View className="grow bg-blue-400" style={{paddingTop: insets.top, paddingBottom: insets.bottom}}>
         <View className="flex h-1/2">

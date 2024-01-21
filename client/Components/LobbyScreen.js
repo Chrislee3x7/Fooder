@@ -4,7 +4,6 @@ import { ScrollView, TouchableOpacity, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import { Button, Text, TextInput } from 'react-native-paper';
 import UserService from '../services/user.service';
-import io from 'socket.io-client'
 import { SocketContext } from './SocketContext';
 
 const LobbyScreen = ({ route, navigation }) => {
@@ -21,7 +20,6 @@ const LobbyScreen = ({ route, navigation }) => {
   const socket = useContext(SocketContext);
 
   const fetchRoomUsers = async () => {
-    console.log("!!!! ROOM CODE", roomCode)
     const res = await UserService.getRoom(roomCode);
     const users = res.data.users;
     setCurrentUsers(users);
@@ -31,6 +29,7 @@ const LobbyScreen = ({ route, navigation }) => {
     let res
     if (isRoomCreator) {
       res = await UserService.closeRoom(roomCode);
+      // console.log(roomCode);
     } else {
       res = await UserService.leaveRoom(roomCode);
     }
@@ -51,10 +50,10 @@ const LobbyScreen = ({ route, navigation }) => {
       socket.emit('joinRoom', roomCode)
       socket.on('userJoined', (message) => {
         fetchRoomUsers();
-        console.log("a user joined and shizzled");
+        // console.log("a user joined and shizzled");
       });
       socket.on('roomStarted', () => {
-        console.log("room started!!!!!!!!!", );
+        // console.log("room started!!!!!!!!!", );
         navigation.navigate('DistancePrice');
       });
     }

@@ -1,5 +1,5 @@
 import { NavigationContainer } from '@react-navigation/native';
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState, useRef, useContext } from 'react';
 import { View, TouchableOpacity, Animated, StyleSheet } from 'react-native';
 import { Button, Text, TextInput, Icon, SegmentedButtons } from 'react-native-paper';
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
@@ -7,8 +7,8 @@ import UserService from '../services/user.service';
 import Swipeable from 'react-native-gesture-handler/Swipeable';
 import { RectButton } from 'react-native-gesture-handler';
 import { GestureDetector } from 'react-native-gesture-handler';
-// import Icon from '@mdi/react';
-// import { mdiCurrencyUsd } from '@mdi/js';
+import { SocketContext } from './SocketContext';
+
 
 const SwipeScreen = ({ route, navigation }) => {
 
@@ -27,18 +27,32 @@ const SwipeScreen = ({ route, navigation }) => {
   const swipeableRef = useRef('');
 
   const [answers, setAnswers] = useState([]);
+  
+  const socket = useContext(SocketContext);
 
-  const onContinuePress = async () => {
-    await UserService.saveAnswer('dist', JSON.stringify(dist));
-    await UserService.saveAnswer('price', JSON.stringify(price));
-    const var1 = await UserService.getAnswer('dist');
-    const var2 = await UserService.getAnswer('price');
-    console.log(var1, var2)
-    navigation.navigate('Veto');
-  }
+  // const onContinuePress = async () => {
+  //   await UserService.saveAnswer('dist', JSON.stringify(dist));
+  //   await UserService.saveAnswer('price', JSON.stringify(price));
+  //   const var1 = await UserService.getAnswer('dist');
+  //   const var2 = await UserService.getAnswer('price');
+  //   console.log(var1, var2)
+  //   navigation.navigate('Veto');
+  // }
 
   useEffect(() => {
+
+    if (socket) {
+      socket.on('userFinishedQuestions', async (message) => {
+        const res = await UserService.getRoom(message.roomCode);
+        const users = res.data.users;
+        if (users.length === res.data.finishedUsers) {
+          navigation.navigate('Final', {finalRestaurant: "HEEEEEE"});
+        }
+      });
+    }
+
     (async () => {
+
       let businessIds = [];
       for (let r of restaurants) {
         businessIds.push(r.id);
@@ -53,14 +67,26 @@ const SwipeScreen = ({ route, navigation }) => {
       setQuestions(data.response);
       console.log(`length of questions ${data.response.length}`);
     })();
+
+    return () => {
+      if (socket) {
+        socket.off('userFinishedQuestions');
+      }
+    }
   }, []);
 
   useEffect(() => {
     (async () => {
-      if (currQuestionNum >= questions.length) {
+      console.log(currQuestionNum, questions.length);
+      if (questions.length != 0 && currQuestionNum >= questions.length) {
         console.log(answers);
         const res = await UserService.getGptResult(answers, userPrompt, assistantPrompt)
-        console.log(res);
+        const finRes = await UserService.finishedRoom(res.data);
+        console.log(finRes);
+        if (finRes.status == 200) {
+          const {userId, roomCode} = await UserService.getUserFromStorage();
+          socket.emit('finishedQuestions', {userId, roomCode});
+        }
       }
     })();
   }, [currQuestionNum])

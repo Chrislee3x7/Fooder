@@ -17,7 +17,7 @@ const RoomSchema = new mongoose.Schema({
     isStarted: {
         type: Boolean,
         required: true,
-        default: false
+        default: true
     },
     finishedUsers: [{
         user: {

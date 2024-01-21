@@ -6,11 +6,13 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import UserService from '../services/user.service';
 
 
-const FinalScreen = ({ navigation }) => {
+const FinalScreen = ({ route, navigation }) => {
   const insets = useSafeAreaInsets();
 
   const [roomCode, setRoomCode] = useState('');
   const [username, setUsername] = useState('');
+
+  const finalRestaurant = route.params.finalRestaurant;
 
   const onJoinRoomPress = async () => {
     await UserService.createUser(username);
@@ -30,7 +32,7 @@ const FinalScreen = ({ navigation }) => {
           />
         </View>
         <View className="flex justify-center items-center">
-          <Text variant="headlineLarge" className="">We Reccomend</Text>
+          <Text variant="headlineLarge" className="">We Recommend</Text>
         </View>
       </View>
       <View className="grow">

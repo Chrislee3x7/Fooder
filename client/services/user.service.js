@@ -136,6 +136,15 @@ class UserService {
   async getGptResult(answers, userPrompt, assistantPrompt) {
     return await axios.post(`${API_URL}/gpt/answer`, { answers, userPrompt, assistantPrompt })
   }
+
+  async finishedRoom(restaurants) {
+    const {userId, roomCode} = await this.getUserFromStorage();
+    return await axios.post(`${API_URL}/room/finish`, { roomCode, userId, restaurants })
+  }
+
+  async getUserFromStorage() {
+    return { userId, roomCode } = JSON.parse(await SecureStore.getItemAsync("user"));
+  }
 }
 
 export default new UserService();

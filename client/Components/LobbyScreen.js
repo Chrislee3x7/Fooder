@@ -71,15 +71,17 @@ const LobbyScreen = ({ route, navigation }) => {
   }, [])
 
   return (
-    <View className="justify-center bg-white grow" style={{paddingTop: insets.top}}>
-      <View className="h-2/3 bg-white">
+    <View className="justify-center grow" style={{paddingTop: insets.top, backgroundColor: "#FBF9F0"}}>
+      <View className="h-2/3 "
+        style={{backgroundColor: "#FBF9F0"}}>
         <Text className="text-center" variant="titleSmall">Room Code:</Text>
         <Text className="mb-4 mx-4 text-center" variant="headlineLarge">{roomCode}</Text>
         <ScrollView>
           <View className="mx-8 gap-y-3">
             {/* List of users */}
             {currentUsers.map((user) => (
-              <View className="shadow-lg bg-blue-100 rounded-2xl p-4"
+              <View className="shadow-lg rounded-2xl p-4"
+                style={{backgroundColor: "#FBF9F0"}}
                 key={user.username}>
                 <Text variant="headlineSmall">{user.username}</Text>
               </View>
@@ -89,20 +91,23 @@ const LobbyScreen = ({ route, navigation }) => {
         </ScrollView>
       </View>
 
-      <View className="flex grow rounded-t-xl justify-between items-center py-6 bg-red-300" style={{paddingBottom: insets.bottom}}>
-        <View className="shadow-lg bg-white p-2 rounded-2xl">
+      <View className="shadow-lg flex grow rounded-t-xl justify-between items-center py-6 bg-red-300" style={{paddingBottom: insets.bottom, backgroundColor: "#69B0D6"}}>
+        <View className="shadow-lg p-2 rounded-2xl"
+          style={{backgroundColor: "#FBF9F0"}}>
           <Text className="text-center" variant="headlineMedium">{username}</Text>
         </View>
 
         <View className="justify-center flex-row space-x-12 ">
 
           <TouchableOpacity className="pb-4" onPress={() => onExitRoomPressed()}>
-            <View className="shadow-md rounded-full h-28 w-28 bg-red-400 items-center justify-center">
+            <View className="shadow-md rounded-full h-28 w-28 items-center justify-center"
+              style={{backgroundColor: "#EAC0C0"}}>
               <Text className="text-center" variant="titleLarge">{isRoomCreator ? "Close \nRoom" : "Leave \nRoom"}</Text>
             </View>
           </TouchableOpacity>
           {isRoomCreator && <TouchableOpacity className="pb-4" onPress={() => onGoPress()}>
-            <View className="shadow-md rounded-full h-28 w-28 bg-white items-center justify-center" >
+            <View className="shadow-md rounded-full h-28 w-28 items-center justify-center" 
+              style={{backgroundColor: "#F1DD76"}}>
               <Text className="text-center" variant="headlineLarge">GO!</Text>
             </View>
           </TouchableOpacity>}

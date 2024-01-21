@@ -15,7 +15,6 @@ class UserService {
       console.log(error);
     }
     // console.log(user)
-    console.log(user.username, user._id, user.roomCode);
     if (!user) {
       console.error('User not created');
       return;
@@ -34,7 +33,6 @@ class UserService {
   async createRoom() {
     // create room
     const res = await axios.post(`${API_URL}/room/create`);
-    console.log("!!!! DATA", res.data)
     
     const value = await SecureStore.getItemAsync('user');
     const user = JSON.parse(value);
@@ -44,20 +42,17 @@ class UserService {
       console.error("unable to get user")
       return false;
     }
-    this.joinRoom(res.data.code);
+    return this.joinRoom(res.data.code);
   }
 
   async joinRoom(roomCode) {
     try {
       const value = await SecureStore.getItemAsync('user');
       const user = JSON.parse(value);
-      console.log(user)
       if (user !== null) {
         // We have data!!
-        console.log(user);
       }
       user.roomCode = roomCode
-      console.log(user);
       // save user with roomCode
       try {
         // console.log(user);
@@ -65,6 +60,13 @@ class UserService {
         const roomCode = user.roomCode
         const userId = user._id
         const res = await axios.post(`${API_URL}/room/join`, { roomCode: roomCode, userId: userId });
+        if (res.status == 200) {
+          console.log("joined room successfully", roomCode);
+          return roomCode;
+        } else {
+          console.error("couldnt join room")
+          return null;
+        }
       } catch (error) {
         console.error("couldnt save data :(((((", error);
         return false;
@@ -78,7 +80,7 @@ class UserService {
   }
 
   async getRoom(roomCode) {
-    return axios.post(`${API_URL}/rooms`, { roomCode })
+    return axios.get(`${API_URL}/room/${roomCode}`,)
   }
 
   async saveAnswer(questionId, answer) {

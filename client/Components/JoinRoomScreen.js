@@ -13,7 +13,7 @@ const JoinRoomScreen = ({ navigation }) => {
 
   const onJoinRoomPress = async () => {
     await UserService.joinRoom(roomCode);
-    navigation.navigate('Lobby');
+    navigation.navigate('Lobby', {roomCode: roomCode, isRoomCreator: false});
   }
 
   return (

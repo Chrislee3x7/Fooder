@@ -68,7 +68,7 @@ const LobbyScreen = ({ route, navigation }) => {
               <Text className="text-center" variant="titleLarge">{isRoomCreator ? "Close \nRoom" : "Leave \nRoom"}</Text>
             </View>
           </TouchableOpacity>
-          <TouchableOpacity className="pb-4" onPress={() => navigation.navigate('Questions')}>
+          <TouchableOpacity className="pb-4" onPress={() => navigation.navigate('DistancePrice')}>
             <View className="rounded-full h-28 w-28 bg-white items-center justify-center" >
               <Text className="text-center" variant="headlineLarge" >GO!</Text>
             </View>

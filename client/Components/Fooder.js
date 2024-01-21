@@ -6,8 +6,9 @@ import HomeScreen from './HomeScreen';
 import CreateRoomScreen from './CreateRoomScreen';
 import JoinRoomScreen from './JoinRoomScreen'
 import LobbyScreen from './LobbyScreen';
-import QuestionsScreen from  './QuestionsScreen';
+import DistancePriceScreen from  './DistancePriceScreen';
 import VetoScreen from './VetoScreen';
+import SwipeScreen from './SwipeScreen';
 
 
 const Fooder = () => {
@@ -23,8 +24,9 @@ const Fooder = () => {
       <Stack.Screen name="CreateRoom" component={CreateRoomScreen} />
       <Stack.Screen name="JoinRoom" component={JoinRoomScreen} />
       <Stack.Screen name="Lobby" component={LobbyScreen} />
-      <Stack.Screen name="Questions" component={QuestionsScreen} />
+      <Stack.Screen name="DistancePrice" component={DistancePriceScreen} />
       <Stack.Screen name="Veto" component={VetoScreen} />
+      <Stack.Screen name="Swipe" component={SwipeScreen}/>
     </Stack.Navigator>
   )
 }

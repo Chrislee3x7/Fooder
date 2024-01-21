@@ -53,12 +53,8 @@ const VetoScreen = ({ navigation }) => {
   }
 
   const onContinuePress = async () => {
-    await UserService.saveAnswer('dist', JSON.stringify(dist));
-    await UserService.saveAnswer('price', JSON.stringify(price));
-    const var1 = await UserService.getAnswer('dist');
-    const var2 = await UserService.getAnswer('price');
-    console.log(var1, var2)
-    navigation.navigate('Veto');
+    
+    navigation.navigate('Swipe');
 
   }
 

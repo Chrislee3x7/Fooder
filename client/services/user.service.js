@@ -71,6 +71,14 @@ class UserService {
   async getRoom(roomCode) {
     return axios.post(`${API_URL}/rooms`, { roomCode })
   }
+
+  async saveAnswer(questionId, answer) {
+    await SecureStore.setItemAsync(questionId, answer);
+  }
+
+  async getAnswer(questionId) {
+    return await SecureStore.getItemAsync(questionId);
+  }
 }
 
 export default new UserService();

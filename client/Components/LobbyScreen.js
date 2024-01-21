@@ -4,6 +4,7 @@ import { ScrollView, TouchableOpacity, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import { Button, Text, TextInput } from 'react-native-paper';
 import UserService from '../services/user.service';
+import io from 'socket.io-client'
 
 const LobbyScreen = ({ route, navigation }) => {
 
@@ -13,8 +14,9 @@ const LobbyScreen = ({ route, navigation }) => {
   const roomCode = route.params.roomCode;
   const username = route.params.username;
   const [currentUsers, setCurrentUsers] = useState([]);
-  // let users = [{username: "immevol"}, {username: "kinglionleo8"}, {username: "nova2011"}, {username: "PeppyCloud3x7"}];
-
+  const [socket, setSocket] = useState(null);
+  
+  const SOCKET_SERVER_URL = "https://fooder-rl87.onrender.com/";
 
   const fetchRoomUsers = async () => {
     console.log("!!!! ROOM CODE", roomCode)
@@ -23,8 +25,32 @@ const LobbyScreen = ({ route, navigation }) => {
     setCurrentUsers(users);
   }
 
+  const onExitRoomPressed = async () => {
+    let res
+    if (isRoomCreator) {
+      res = await UserService.closeRoom(roomCode);
+    } else {
+      res = await UserService.leaveRoom(roomCode);
+    }
+    if (res.status == 200) {
+      navigation.navigate('Home')
+    }
+  }
+
   useEffect(() => {
     fetchRoomUsers();
+
+    const socketIo = io(SOCKET_SERVER_URL);
+
+    setSocket(socketIo)
+
+    socketIo.emit('joinRoom', roomCode)
+
+    socketIo.on('userJoined', (message) => {
+      fetchRoomUsers();
+      console.log("a user joined and shizzled");
+    })
+
     // users = [{username: "b"}, {username: "a"}, {username: "t"}, {username: "i"}]
 
   }, [])
@@ -36,8 +62,9 @@ const LobbyScreen = ({ route, navigation }) => {
         <Text className="mb-4 mx-4 text-center" variant="headlineLarge">{roomCode}</Text>
         <ScrollView>
           <View className="mx-8 gap-y-3">
+            {/* List of users */}
             {currentUsers.map((user) => (
-              <View className="bg-blue-100 rounded-2xl p-4"
+              <View className="shadow-lg bg-blue-100 rounded-2xl p-4"
                 key={user.username}>
                 <Text variant="headlineSmall">{user.username}</Text>
               </View>
@@ -46,30 +73,21 @@ const LobbyScreen = ({ route, navigation }) => {
           </View>
         </ScrollView>
       </View>
-      {/* List of users */}
-      {/* <View>
-        {currentUsers.map((user) => {
-          <View className="border border-black">
-            <Text>{user.username}</Text>
-          </View>
-        }
-        )}
-      </View> */}
 
       <View className="flex grow rounded-t-xl justify-between items-center py-6 bg-red-300" style={{paddingBottom: insets.bottom}}>
-        <View className="bg-white p-2 rounded-2xl">
+        <View className="shadow-lg bg-white p-2 rounded-2xl">
           <Text className="text-center" variant="headlineMedium">{username}</Text>
         </View>
 
-        <View className="justify-center flex-row space-x-8 ">
+        <View className="justify-center flex-row space-x-12 ">
 
-          <TouchableOpacity className="pb-4" onPress={() => navigation.navigate('Home')}>
-            <View className="rounded-full h-28 w-28 bg-red-400 items-center justify-center">
+          <TouchableOpacity className="pb-4" onPress={() => onExitRoomPressed()}>
+            <View className="shadow-md rounded-full h-28 w-28 bg-red-400 items-center justify-center">
               <Text className="text-center" variant="titleLarge">{isRoomCreator ? "Close \nRoom" : "Leave \nRoom"}</Text>
             </View>
           </TouchableOpacity>
           <TouchableOpacity className="pb-4" onPress={() => navigation.navigate('DistancePrice')}>
-            <View className="rounded-full h-28 w-28 bg-white items-center justify-center" >
+            <View className="shadow-md rounded-full h-28 w-28 bg-white items-center justify-center" >
               <Text className="text-center" variant="headlineLarge" >GO!</Text>
             </View>
           </TouchableOpacity>

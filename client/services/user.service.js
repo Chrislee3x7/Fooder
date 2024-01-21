@@ -83,6 +83,25 @@ class UserService {
     return axios.get(`${API_URL}/room/${roomCode}`,)
   }
 
+  async leaveRoom(roomCode) {
+    const userId = JSON.parse(await SecureStore.getItemAsync("user"))._id;
+    const res = await axios.post(`${API_URL}/room/leave`, {roomCode, userId});
+    console.log(res.data)
+    return res;
+  }
+
+  async closeRoom(roomCode) {
+    console.log("CLOSING ROOM")
+    const res = await axios.delete(`${API_URL}/room/close`, {
+      data: {
+        roomCode: roomCode
+      },
+      headers: {}
+    });
+    console.log("room closed")
+    return res;
+  }
+
   async saveAnswer(questionId, answer) {
     await SecureStore.setItemAsync(questionId, answer);
   }

@@ -19,14 +19,18 @@ const RoomSchema = new mongoose.Schema({
         required: true,
         default: false
     },
-    finishedUsers: {
-        type: [{
+    finishedUsers: [{
+        user: {
             type: mongoose.Schema.Types.ObjectId,
-            ref: 'User'
-        }],
-        required: true,
-        default: []
-    }
+            ref: 'User',
+            required: true
+        },
+        tasks: {
+            type: [String],
+            required: true,
+            default: []
+        }
+    }]
 });
 
 module.exports = mongoose.model('Room', RoomSchema);

@@ -151,4 +151,65 @@ router.delete('/close', async (req, res) => {
   }
 });
 
+router.post('/start', async (req, res) => {
+
+  const { roomCode } = req.body;
+
+  try {
+      // Find the room
+      const room = await Room.findOne({ code: roomCode });
+      if (!room) {
+          return res.status(404).send('Room not found');
+      }
+
+      room.isStarted = true;
+      await room.save();
+
+      res.status(200).send('Room deleted and users updated');
+  } catch (error) {
+      res.status(500).json({ message: 'Server error' });
+  }
+});
+
+// Route to handle finishing tasks in a room
+router.post('/finish', async (req, res) => {
+  const { roomCode, userId, restaurants } = req.body;
+
+  try {
+      const userObjectId = new mongoose.Types.ObjectId(userId);
+
+      // Find the room and update it
+      const room = await Room.findOne({ code: roomCode });
+      if (!room) {
+          return res.status(404).send('Room not found');
+      }
+
+      // Check if the room has started
+      if(!room.isStarted) {
+          return res.status(404).send('Room not started');
+      }
+
+      // Check if the user is part of the room
+      if (!room.users.some(user => user.equals(userObjectId))) {
+        return res.status(400).send('User is not part of the room');
+    }
+
+      // Check if the user has already finished
+      if (room.finishedUsers.some(finishedUser => finishedUser.user.equals(userObjectId))) {
+          return res.status(400).send('User has already finished');
+      }
+
+      // Add the user to the finishedUsers array
+      room.finishedUsers.push({ user: userObjectId, tasks: restaurants });
+
+      await room.save();
+      res.status(200).send('User marked as finished with tasks');
+  } catch (error) {
+      console.error(error);
+      res.status(500).send('Server error');
+  }
+});
+
+
+
 module.exports = router;

@@ -21,13 +21,13 @@ const HomeScreen = ({ navigation }) => {
         </View>
         <View className="flex grow pl-8 pr-8">
           <TouchableOpacity onPress={() => navigation.navigate("CreateRoom")}>
-            <View className="mx-2 my-4 p-4 rounded-2xl" style={{backgroundColor: '#AED2F7'}}>
+            <View className="shadow-md mx-2 my-4 p-4 rounded-2xl" style={{backgroundColor: '#AED2F7'}}>
               <Text className="text-center" variant="titleMedium">Create Room</Text>
             </View>
           </TouchableOpacity>
           <TouchableOpacity 
             onPress={() => navigation.navigate("JoinRoom")}>
-            <View className="mx-2 my-4 p-4 rounded-2xl" style={{backgroundColor: '#AED2F7'}}>
+            <View className="shadow-md mx-2 my-4 p-4 rounded-2xl" style={{backgroundColor: '#AED2F7'}}>
               <Text className="text-center" variant="titleMedium">Join Room</Text>
             </View>
           </TouchableOpacity >

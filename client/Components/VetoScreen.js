@@ -5,6 +5,7 @@ import { Button, Text, TextInput, Icon, SegmentedButtons, Checkbox } from 'react
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import UserService from '../services/user.service';
 import { bool } from 'prop-types';
+import { ScrollView } from 'react-native-gesture-handler';
 // import Icon from '@mdi/react';
 // import { mdiCurrencyUsd } from '@mdi/js';
 
@@ -54,16 +55,20 @@ const VetoScreen = ({ route, navigation }) => {
       
       <View className="px-8 grow">
         <Text className="mb-4 mx-4 text-center" variant="headlineLarge">Veto 3</Text>
-        <View className="gap-y-3">
-        {restaurants.map(restaurant => (
-          <TouchableOpacity className="shadow-lg rounded-2xl p-4"
-            style={{backgroundColor: toggleState[restaurant.id] ? 'blue' : 'yellow'}}
-            onPress={() => handleToggle(restaurant.id)}
-            key={restaurant.id}>
-            <Text variant="headlineSmall">{restaurant.name}</Text>
-          </TouchableOpacity>
-        ))}
-        </View>
+        <ScrollView
+          // style={{marginBottom: 40}}>
+          >
+          <View className="gap-y-3">
+          {restaurants.map(restaurant => (
+            <TouchableOpacity className="shadow-lg rounded-2xl p-4"
+              style={{backgroundColor: toggleState[restaurant.id] ? 'blue' : 'yellow'}}
+              onPress={() => handleToggle(restaurant.id)}
+              key={restaurant.id}>
+              <Text variant="headlineSmall">{restaurant.name}</Text>
+            </TouchableOpacity>
+          ))}
+          </View>
+        </ScrollView>
       </View>
       <View className="px-8 py-4">
         <Button

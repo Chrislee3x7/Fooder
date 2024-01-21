@@ -1,13 +1,17 @@
 import axios from 'axios';
 import * as SecureStore from 'expo-secure-store';
-// import { API_URL } from 'react-native-dotenv';
 
 API_URL = "https://fooder-rl87.onrender.com/api";
+// API_URL = "https://localhost:5000/api";
 
 class UserService {
   
   async createUser(username) {
-    const user = await axios.post(`${API_URL}/user/create`, { username });
+    try {
+      const user = await axios.post(`${API_URL}/user/create`, { username });
+    } catch (error) {
+      console.log(error);
+    }
     console.log(user.data.username, user.data._id, user.data.roomCode);
     if (!user) {
       console.error('User not created');
@@ -27,6 +31,7 @@ class UserService {
   async createRoom() {
     // create room
     const res = await axios.post(`${API_URL}/room/create`);
+    console.log("in create room")
     console.log("!!!! DATA", res.data)
     const value = await SecureStore.getItemAsync('user');
     const user = JSON.parse(value);
@@ -37,7 +42,7 @@ class UserService {
       return false;
     }
 
-    user.roomCode = res.data.roomCode;
+    user.roomCode = res.data.code;
     try {
       // console.log(user);
       await SecureStore.setItemAsync("user", JSON.stringify(user));

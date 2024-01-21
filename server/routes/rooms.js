@@ -7,14 +7,15 @@ const router = express.Router();
 
 // Create Room
 router.post('/create', async (req, res) => {
+  console.log("in create room server")
   try {
-    let roomCode = "";
+    let code = "";
     for(let i=0; i<4; i++) {
-      roomCode += String.fromCharCode(65 + Math.floor(Math.random() * 26));
+      code += String.fromCharCode(65 + Math.floor(Math.random() * 26));
     }
     
     let room = new Room({
-      roomCode: roomCode
+      code: code
     });
     
     await room.save();
@@ -23,7 +24,7 @@ router.post('/create', async (req, res) => {
       return res.status(401).json('Duplicate code accidentally generated, please try again!');
     }
 
-    console.log(`Room created with code ${roomCode}`)
+    console.log(`Room created with code ${code}`)
     return res.status(200).json(room);
 
   } catch (error) {
@@ -32,11 +33,11 @@ router.post('/create', async (req, res) => {
 });
 
 // Get the room and all users in the room
-router.get('/:roomCode', async (req, res) => {
-  const roomCode = req.params.roomCode;
+router.get('/:code', async (req, res) => {
+  const code = req.params.code
 
   try {
-      const room = await Room.findOne({ roomCode: roomCode }).populate('users').exec();
+      const room = await Room.findOne({ code: code }).populate('users').exec();
       if (!room) {
           return res.status(404).send('Room not found');
       }
@@ -48,7 +49,7 @@ router.get('/:roomCode', async (req, res) => {
 });
 
 router.post('/join', async (req, res) => {
-  const { roomCode, userId } = req.body;
+  const { code, userId } = req.body;
 
   try {
       // Validate that the user exists
@@ -59,7 +60,7 @@ router.post('/join', async (req, res) => {
 
       
       // Find the room and add the user to it
-      const room = await Room.findOne({ roomCode: roomCode });
+      const room = await Room.findOne({ code: code });
       if (!room) {
         return res.status(404).send('Room not found');
       }

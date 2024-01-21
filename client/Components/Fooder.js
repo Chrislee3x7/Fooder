@@ -10,6 +10,7 @@ import DistancePriceScreen from  './DistancePriceScreen';
 import VetoScreen from './VetoScreen';
 import SwipeScreen from './SwipeScreen';
 import QuestionsScreen from './QuestionsScreen';
+import FinalScreen from './FinalScreen';
 
 
 const Fooder = () => {
@@ -29,6 +30,7 @@ const Fooder = () => {
       <Stack.Screen name="DistancePrice" component={DistancePriceScreen} />
       <Stack.Screen name="Veto" component={VetoScreen} />
       <Stack.Screen name="Swipe" component={SwipeScreen}/>
+      <Stack.Screen name="Final" component={FinalScreen}/>
     </Stack.Navigator>
   )
 }

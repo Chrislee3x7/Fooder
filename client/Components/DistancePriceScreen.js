@@ -74,7 +74,7 @@ const DistancePriceScreen = ({ navigation }) => {
   }
 
   return (
-    <View className=" bg-red-400 grow" style={{ paddingTop: insets.top, paddingBottom: insets.bottom }}>
+    <View className="grow" style={{ paddingTop: insets.top, paddingBottom: insets.bottom, backgroundColor: "#FBF9F0" }}>
       <View className="flex h">
         <TouchableOpacity className="flex-row ml-4 items-center" onPress={() => navigation.goBack()}>
           <Icon
@@ -144,14 +144,13 @@ const DistancePriceScreen = ({ navigation }) => {
         </View>
       </View>
       <View className="px-8 py-4">
-        <Button
-          className="mx-2 my-4 pl-8 pr-8"
-          mode='contained'
-          disabled={!continueEnabled}
-          buttonColor='red'
-          onPress={() => onContinuePress()}
-        >Continue
-        </Button>
+          <TouchableOpacity
+            className="mx-2 my-4 pl-8 pr-8"
+            onPress={() => onContinuePress()}>
+            <View className="shadow-md mx-2 my-4 p-4 rounded-2xl" style={{backgroundColor: '#f1dd76'}}>
+              <Text className="text-center" variant="titleMedium">Continue</Text>
+            </View>
+          </TouchableOpacity >
       </View>
     </View>
   )

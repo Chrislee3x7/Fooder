@@ -22,7 +22,7 @@ router.post('/restaurants', async (req, res) => {
         categories: ['restaurants'],
         price: prices,
         open_now: true,
-        limit: 8
+        limit: 3
       }
     });
 

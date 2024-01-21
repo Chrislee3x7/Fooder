@@ -3,7 +3,7 @@ import io from 'socket.io-client';
 
 export const SocketContext = createContext();
 
-const SOCKET_SERVER_URL = 'http://your-server-url:3000/'; // Replace with your server URL
+const SOCKET_SERVER_URL = 'https://fooder-rl87.onrender.com/'; // Replace with your server URL
 
 export const SocketProvider = ({ children }) => {
     const [socket, setSocket] = useState(null);

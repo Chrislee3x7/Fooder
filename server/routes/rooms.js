@@ -73,7 +73,7 @@ router.post('/join', async (req, res) => {
           room.users.push(userObjectId);
           await room.save();
 
-          userExists.roomCode = roomCode;
+          userExists.roomCode = code;
           await userExists.save();
 
           res.status(200).send('User added to room');

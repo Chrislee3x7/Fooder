@@ -1,6 +1,6 @@
 import { NavigationContainer } from '@react-navigation/native';
 import React, { useState } from 'react';
-import { View, Image } from 'react-native';
+import { View, Image, TouchableOpacity } from 'react-native';
 import { Button, Text, TextInput } from 'react-native-paper';
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
@@ -20,15 +20,17 @@ const HomeScreen = ({ navigation }) => {
           />
         </View>
         <View className="flex grow pl-8 pr-8">
-          <Button className="mx-2 my-4" mode='contained' 
-            style={{backgroundColor: '#AED2F7', padding: 8, justifyContent: 'center'}} 
-            labelStyle={{color: '#000000', fontSize: 16}}
-            onPress={() => navigation.navigate("CreateRoom")}>Create Room</Button>
-
-          <Button className="mx-2 my-4 pl-8 pr-8" mode='contained-tonal' 
-            style={{backgroundColor: '#AED2F7', padding: 8, justifyContent: 'center'}} 
-            labelStyle={{color: '#000000', fontSize: 16}}
-            onPress={() => navigation.navigate("JoinRoom")}>Join Room</Button>
+          <TouchableOpacity onPress={() => navigation.navigate("CreateRoom")}>
+            <View className="mx-2 my-4 p-4 rounded-2xl" style={{backgroundColor: '#AED2F7'}}>
+              <Text className="text-center" variant="titleMedium">Create Room</Text>
+            </View>
+          </TouchableOpacity>
+          <TouchableOpacity 
+            onPress={() => navigation.navigate("JoinRoom")}>
+            <View className="mx-2 my-4 p-4 rounded-2xl" style={{backgroundColor: '#AED2F7'}}>
+              <Text className="text-center" variant="titleMedium">Join Room</Text>
+            </View>
+          </TouchableOpacity >
         </View> 
     </View>
   )

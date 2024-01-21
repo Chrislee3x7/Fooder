@@ -66,14 +66,11 @@ const JoinRoomScreen = ({ navigation }) => {
           </View>
         </View>
 
-        <Button
-          className="mx-2 my-4 pl-8 pr-8"
-          style={{backgroundColor: '#EFEFA7', padding: 8, justifyContent: 'center'}} 
-          labelStyle={{color: '#000000', fontSize: 16}}
-          // labelStyle={{}}
-          onPress={() => onJoinRoomPress()}
-        >Join Room
-        </Button>
+        <TouchableOpacity onPress={() => onJoinRoomPress()}>
+          <View className="mx-2 my-4 p-4 rounded-2xl" style={{backgroundColor: '#EFEFA7'}}>
+            <Text className="text-center" variant="titleMedium">Join Room</Text>
+          </View>
+        </TouchableOpacity>
       </View>
     </View>
   )

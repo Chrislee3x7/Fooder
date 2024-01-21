@@ -24,7 +24,7 @@ const CreateRoomScreen = ({ navigation }) => {
     }
     console.log("About to navigate to lobby", roomCode);
 
-    navigation.navigate('Lobby', {roomCode: roomCode, isRoomCreator: true});
+    navigation.navigate('Lobby', {username: username,roomCode: roomCode, isRoomCreator: true});
   }
 
   return (

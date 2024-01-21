@@ -10,10 +10,11 @@ const LobbyScreen = ({ route, navigation }) => {
   const insets = useSafeAreaInsets();
 
   const isRoomCreator = route.params.isRoomCreator;
+  const roomCode = route.params.roomCode;
+  const username = route.params.username;
   const [currentUsers, setCurrentUsers] = useState([]);
   // let users = [{username: "immevol"}, {username: "kinglionleo8"}, {username: "nova2011"}, {username: "PeppyCloud3x7"}];
 
-  const roomCode = route.params.roomCode;
 
   const fetchRoomUsers = async () => {
     console.log("!!!! ROOM CODE", roomCode)
@@ -57,14 +58,14 @@ const LobbyScreen = ({ route, navigation }) => {
 
       <View className="flex grow rounded-t-xl justify-between items-center py-6 bg-red-300" style={{paddingBottom: insets.bottom}}>
         <View className="bg-white p-2 rounded-2xl">
-          <Text className="text-center" variant="headlineMedium">PeppyCloud3x7</Text>
+          <Text className="text-center" variant="headlineMedium">{username}</Text>
         </View>
 
         <View className="justify-center flex-row space-x-8 ">
 
-          <TouchableOpacity className="pb-4" onPress={() => navigation.goBack()}>
+          <TouchableOpacity className="pb-4" onPress={() => navigation.navigate('Home')}>
             <View className="rounded-full h-28 w-28 bg-red-400 items-center justify-center">
-              <Text variant="headlineSmall">{isRoomCreator ? "Close Room" : "Leave Room"}</Text>
+              <Text className="text-center" variant="titleLarge">{isRoomCreator ? "Close \nRoom" : "Leave \nRoom"}</Text>
             </View>
           </TouchableOpacity>
           <TouchableOpacity className="pb-4" onPress={() => navigation.navigate('Questions')}>

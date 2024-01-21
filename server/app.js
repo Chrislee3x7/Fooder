@@ -38,20 +38,18 @@ io.on('connection', (socket) => {
   // Joining a room
   socket.on('joinRoom', ({ userId, roomCode }) => {
       socket.join(roomCode);
-      socket.to(roomCode).emit('userJoined', { userId, roomCode });
+      io.in(roomCode).emit('userJoined', { userId, roomCode });
       console.log(`User ${userId} joined room ${roomCode}`);
   });
 
   socket.on('finishedQuestions', ({ userId, roomCode }) => {
-    socket.join(roomCode);
-    socket.to(roomCode).emit('userFinishedQuestions', { userId, roomCode });
+    io.in(roomCode).emit('userFinishedQuestions', { userId, roomCode });
     console.log(`User ${userId} finished in room ${roomCode}`);
   });
 
   // Starting a room
   socket.on('startRoom', ({ roomCode }) => {
-    socket.join(roomCode);
-    socket.to(roomCode).emit('roomStarted');
+    io.in(roomCode).emit('roomStarted');
     console.log(`${roomCode} started`);
 });
 

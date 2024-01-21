@@ -18,7 +18,7 @@ const QuestionsScreen = ({ navigation }) => {
     const var1 = await UserService.getAnswer('dist');
     const var2 = await UserService.getAnswer('price');
     console.log(var1, var2)
-    navigation.navigate('Lobby');
+    navigation.navigate('Veto');
     
   }
 

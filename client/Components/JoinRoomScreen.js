@@ -10,8 +10,10 @@ const JoinRoomScreen = ({ navigation }) => {
   const insets = useSafeAreaInsets();
 
   const [roomCode, setRoomCode] = useState('');
-
+  const [username, setUsername] = useState('');
+  
   const onJoinRoomPress = async () => {
+    console.log(roomCode);
     await UserService.joinRoom(roomCode);
     navigation.navigate('Lobby');
   }
@@ -36,6 +38,7 @@ const JoinRoomScreen = ({ navigation }) => {
             autoCapitalize="none"
             blurOnSubmit
             value={roomCode}
+            onChangeText={text => {setRoomCode(text)}}
             inputMode="text"
             mode='outlined'
             label='Room Code'
@@ -49,6 +52,8 @@ const JoinRoomScreen = ({ navigation }) => {
             inputMode="text"
             mode='outlined'
             label='Username'
+            value={username}
+            onChangeText={text => {setUsername(text)}}
           />
         </View>
 

@@ -48,30 +48,21 @@ const VetoScreen = ({ route, navigation }) => {
             size={35}
           />
           <Text>Go Back</Text>
-
         </TouchableOpacity>
 
       </View>
       
       <View className="px-8 grow">
         <Text className="mb-4 mx-4 text-center" variant="headlineLarge">Veto 3</Text>
-        <View>
-        {/* {vetos.map( a => (
-          <Checkbox.Item label={a.restaurant} status={vetoed ? 'checked' : 'unchecked'} onPress={() => {
-            setVetoed(!vetoed);
-          }}/>
-          )
-        )} */}
+        <View className="gap-y-3">
         {restaurants.map(restaurant => (
-        
-        <TouchableOpacity
-          key={restaurant.id}
-          style={{backgroundColor: toggleState[restaurant.id] ? 'blue' : 'yellow'}}
-          // style={[styles.item, toggleState[restaurant.id] ? styles.itemOn : styles.itemOff]}
-          onPress={() => handleToggle(restaurant.id)}>
-          <Text>{restaurant.name}</Text>
-        </TouchableOpacity>
-      ))}
+          <TouchableOpacity className="shadow-lg rounded-2xl p-4"
+            style={{backgroundColor: toggleState[restaurant.id] ? 'blue' : 'yellow'}}
+            onPress={() => handleToggle(restaurant.id)}
+            key={restaurant.id}>
+            <Text variant="headlineSmall">{restaurant.name}</Text>
+          </TouchableOpacity>
+        ))}
         </View>
       </View>
       <View className="px-8 py-4">

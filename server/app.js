@@ -43,12 +43,14 @@ io.on('connection', (socket) => {
   });
 
   socket.on('finishedQuestions', ({ userId, roomCode }) => {
+    socket.join(roomCode);
     socket.to(roomCode).emit('userFinishedQuestions', { userId, roomCode });
     console.log(`User ${userId} finished in room ${roomCode}`);
   });
 
   // Starting a room
   socket.on('startRoom', ({ roomCode }) => {
+    socket.join(roomCode);
     socket.to(roomCode).emit('roomStarted');
     console.log(`${roomCode} started`);
 });

@@ -5,6 +5,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import { Button, Text, TextInput } from 'react-native-paper';
 import UserService from '../services/user.service';
 import io from 'socket.io-client'
+import { SocketContext } from './SocketContext';
 
 const LobbyScreen = ({ route, navigation }) => {
 
@@ -14,7 +15,7 @@ const LobbyScreen = ({ route, navigation }) => {
   const roomCode = route.params.roomCode;
   const username = route.params.username;
   const [currentUsers, setCurrentUsers] = useState([]);
-  const [socket, setSocket] = useState(null);
+  const socket = useContext(SocketContext);
   
   const SOCKET_SERVER_URL = "https://fooder-rl87.onrender.com/";
 
@@ -47,20 +48,15 @@ const LobbyScreen = ({ route, navigation }) => {
 
     const socketIo = io(SOCKET_SERVER_URL);
 
-    setSocket(socketIo)
-
-    socketIo.emit('joinRoom', roomCode)
-
-    socketIo.on('userJoined', (message) => {
-      fetchRoomUsers();
-      console.log("a user joined and shizzled");
-    })
+    if (socket) {
+      socketIo.emit('joinRoom', roomCode)
+      socketIo.on('userJoined', (message) => {
+        fetchRoomUsers();
+        console.log("a user joined and shizzled");
+      });
+    }
 
     // users = [{username: "b"}, {username: "a"}, {username: "t"}, {username: "i"}]
-    return () => {
-      socketIo.emit('joinRoom', roomCode); // Optionally notify the server when leaving the room
-      socketIo.disconnect();
-    };
   }, [])
 
   return (

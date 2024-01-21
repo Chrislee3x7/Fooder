@@ -27,13 +27,14 @@ class UserService {
   async createRoom() {
     // create room
     const res = await axios.post(`${API_URL}/room/create`);
+    console.log("!!!! DATA", res.data)
     const value = await SecureStore.getItemAsync('user');
     const user = JSON.parse(value);
     
     // update user's roomCode
     if (user == null) {
       console.error("unable to get user")
-      return false
+      return false;
     }
 
     user.roomCode = res.data.roomCode;

@@ -8,13 +8,13 @@ const router = express.Router();
 // Create Room
 router.post('/create', async (req, res) => {
   try {
-    let code = "";
+    let roomCode = "";
     for(let i=0; i<4; i++) {
-      code += String.fromCharCode(65 + Math.floor(Math.random() * 26));
+      roomCode += String.fromCharCode(65 + Math.floor(Math.random() * 26));
     }
     
     let room = new Room({
-      code: code
+      roomCode: roomCode
     });
     
     await room.save();
@@ -32,8 +32,8 @@ router.post('/create', async (req, res) => {
 });
 
 // Get the room and all users in the room
-router.get('/:code', async (req, res) => {
-  const roomCode = req.params.code;
+router.get('/:roomCode', async (req, res) => {
+  const roomCode = req.params.roomCode;
 
   try {
       const room = await Room.findOne({ code: roomCode }).populate('users').exec();

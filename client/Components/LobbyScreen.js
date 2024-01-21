@@ -81,7 +81,7 @@ const LobbyScreen = ({ route, navigation }) => {
             {/* List of users */}
             {currentUsers.map((user) => (
               <View className="shadow-lg rounded-2xl p-4"
-                style={{backgroundColor: "#FBF9F0"}}
+                style={{backgroundColor: "#eac0c0"}}
                 key={user.username}>
                 <Text variant="headlineSmall">{user.username}</Text>
               </View>
@@ -91,29 +91,27 @@ const LobbyScreen = ({ route, navigation }) => {
         </ScrollView>
       </View>
 
-      <View className="shadow-lg flex grow rounded-t-xl justify-between items-center py-6 bg-red-300" style={{paddingBottom: insets.bottom, backgroundColor: "#69B0D6"}}>
-        <View className="shadow-lg p-2 rounded-2xl"
-          style={{backgroundColor: "#FBF9F0"}}>
-          <Text className="text-center" variant="headlineMedium">{username}</Text>
-        </View>
+      <View className="shadow-lg flex grow rounded-t-xl justify-between py-6 bg-red-300" style={{paddingBottom: insets.bottom, backgroundColor: "#eac0c0"}}>
+        {/* <View className="shadow-lg p-2 mx-12 rounded-2xl"
+          style={{backgroundColor: "#eac0c0"}}>
+          <Text className="text-center" variant="headlineSmall">{username}</Text>
+        </View> */}
 
         <View className="justify-center flex-row space-x-12 ">
 
-          <TouchableOpacity className="pb-4" onPress={() => onExitRoomPressed()}>
+          <TouchableOpacity className="py-12" onPress={() => onExitRoomPressed()}>
             <View className="shadow-md rounded-full h-28 w-28 items-center justify-center"
-              style={{backgroundColor: "#EAC0C0"}}>
+              style={{backgroundColor: "#f1dd76"}}>
               <Text className="text-center" variant="titleLarge">{isRoomCreator ? "Close \nRoom" : "Leave \nRoom"}</Text>
             </View>
           </TouchableOpacity>
-          {isRoomCreator && <TouchableOpacity className="pb-4" onPress={() => onGoPress()}>
+          {isRoomCreator && <TouchableOpacity className="py-12" onPress={() => onGoPress()}>
             <View className="shadow-md rounded-full h-28 w-28 items-center justify-center" 
-              style={{backgroundColor: "#F1DD76"}}>
+              style={{backgroundColor: "#f1dd76"}}>
               <Text className="text-center" variant="headlineLarge">GO!</Text>
             </View>
           </TouchableOpacity>}
         </View>
-        {/* <Button className="" mode='contained' 
-          onPress={() => navigation.navigate('Home')}>Start!</Button> */}
       </View>
     </View>
   )

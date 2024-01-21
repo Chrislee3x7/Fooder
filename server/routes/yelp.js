@@ -10,9 +10,6 @@ router.post('/restaurants', async (req, res) => {
   try {
     const { longitude, latitude, prices, radius } = req.body;
 
-    // Convert prices array to a comma-separated string
-    const priceString = prices.join(',');
-
     // Make a request to the Yelp API
     const response = await axios.get(YELP_API_URL, {
       headers: {
@@ -25,7 +22,7 @@ router.post('/restaurants', async (req, res) => {
         categories: ['restaurants'],
         price: prices,
         open_now: true,
-        limit: 20
+        limit: 3
       }
     });
 

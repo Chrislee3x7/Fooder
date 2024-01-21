@@ -39,7 +39,7 @@ const VetoScreen = ({ route, navigation }) => {
   }
 
   return (
-    <View className=" bg-red-400 grow" style={{ paddingTop: insets.top, paddingBottom: insets.bottom }}>
+    <View className="grow" style={{ paddingTop: insets.top, paddingBottom: insets.bottom, backgroundColor: "#fbf9f0" }}>
       <View className="flex h">
         <TouchableOpacity className="flex-row ml-4 items-center" onPress={() => navigation.goBack()}>
           <Icon
@@ -60,23 +60,23 @@ const VetoScreen = ({ route, navigation }) => {
           <View className="gap-y-3">
           {restaurants.map(restaurant => (
             <TouchableOpacity className="shadow-lg rounded-2xl p-4"
-              style={{backgroundColor: toggleState[restaurant.id] ? 'blue' : 'yellow'}}
+              style={{backgroundColor: toggleState[restaurant.id] ? '#69b0d6' : '#eac0c0'}}
               onPress={() => handleToggle(restaurant.id)}
               key={restaurant.id}>
-              <Text variant="headlineSmall">{restaurant.name}</Text>
+              <Text variant="headlineSmall" >{restaurant.name}</Text>
             </TouchableOpacity>
           ))}
           </View>
         </ScrollView>
       </View>
       <View className="px-8 py-4">
-        <Button
-          className="mx-2 my-4 pl-8 pr-8"
-          mode='contained'
-          buttonColor='red'
-          onPress={() => onContinuePress()}
-        >Continue
-        </Button>
+      <TouchableOpacity
+            className="mx-2 my-4 pl-8 pr-8"
+            onPress={() => onContinuePress()}>
+            <View className="shadow-md mx-2 my-4 p-4 rounded-2xl" style={{backgroundColor: '#f1dd76'}}>
+              <Text className="text-center" variant="titleMedium">Continue</Text>
+            </View>
+          </TouchableOpacity >
       </View>
     </View>
   )

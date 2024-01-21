@@ -9,6 +9,7 @@ import LobbyScreen from './LobbyScreen';
 import DistancePriceScreen from  './DistancePriceScreen';
 import VetoScreen from './VetoScreen';
 import SwipeScreen from './SwipeScreen';
+import QuestionsScreen from './QuestionsScreen';
 
 
 const Fooder = () => {
@@ -24,6 +25,7 @@ const Fooder = () => {
       <Stack.Screen name="CreateRoom" component={CreateRoomScreen} />
       <Stack.Screen name="JoinRoom" component={JoinRoomScreen} />
       <Stack.Screen name="Lobby" component={LobbyScreen} />
+      <Stack.Screen name="Questions" component={QuestionsScreen} />
       <Stack.Screen name="DistancePrice" component={DistancePriceScreen} />
       <Stack.Screen name="Veto" component={VetoScreen} />
       <Stack.Screen name="Swipe" component={SwipeScreen}/>

@@ -15,9 +15,10 @@ const LobbyScreen = ({ route, navigation }) => {
   const roomCode = route.params.roomCode;
   const username = route.params.username;
   const [currentUsers, setCurrentUsers] = useState([]);
-  const socket = useContext(SocketContext);
   
   const SOCKET_SERVER_URL = "https://fooder-rl87.onrender.com/";
+  
+  const socket = useContext(SocketContext);
 
   const fetchRoomUsers = async () => {
     console.log("!!!! ROOM CODE", roomCode)
@@ -39,21 +40,33 @@ const LobbyScreen = ({ route, navigation }) => {
   }
 
   const onGoPress = () => {
+    console.log("GO PRESSEd")
+    console.log(socket)
     socket.emit('startRoom', roomCode)
-    navigation.navigate('DistancePrice');
+    // navigation.navigate('DistancePrice');
   }
 
   useEffect(() => {
     fetchRoomUsers();
 
-    const socketIo = io(SOCKET_SERVER_URL);
-
     if (socket) {
-      socketIo.emit('joinRoom', roomCode)
-      socketIo.on('userJoined', (message) => {
+      socket.emit('joinRoom', roomCode)
+      socket.on('userJoined', (message) => {
         fetchRoomUsers();
         console.log("a user joined and shizzled");
       });
+      socket.on('roomStarted', () => {
+        console.log("room started!!!!!!!!!", );
+        navigation.navigate('Questions');
+      });
+    }
+
+    return () => {
+      if (socket) {
+        socket.emit('joinRoom', roomCode)
+        socket.off('userJoined');
+        socket.off('roomStarted');
+      }
     }
 
     // users = [{username: "b"}, {username: "a"}, {username: "t"}, {username: "i"}]

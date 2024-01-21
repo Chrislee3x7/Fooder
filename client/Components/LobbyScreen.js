@@ -37,6 +37,11 @@ const LobbyScreen = ({ route, navigation }) => {
     }
   }
 
+  const onGoPress = () => {
+    socket.emit('startRoom', roomCode)
+    navigation.navigate('DistancePrice');
+  }
+
   useEffect(() => {
     fetchRoomUsers();
 
@@ -52,7 +57,10 @@ const LobbyScreen = ({ route, navigation }) => {
     })
 
     // users = [{username: "b"}, {username: "a"}, {username: "t"}, {username: "i"}]
-
+    return () => {
+      socketIo.emit('joinRoom', roomCode); // Optionally notify the server when leaving the room
+      socketIo.disconnect();
+    };
   }, [])
 
   return (
@@ -86,11 +94,11 @@ const LobbyScreen = ({ route, navigation }) => {
               <Text className="text-center" variant="titleLarge">{isRoomCreator ? "Close \nRoom" : "Leave \nRoom"}</Text>
             </View>
           </TouchableOpacity>
-          <TouchableOpacity className="pb-4" onPress={() => navigation.navigate('DistancePrice')}>
+          {isRoomCreator && <TouchableOpacity className="pb-4" onPress={() => onGoPress()}>
             <View className="shadow-md rounded-full h-28 w-28 bg-white items-center justify-center" >
-              <Text className="text-center" variant="headlineLarge" >GO!</Text>
+              <Text className="text-center" variant="headlineLarge">GO!</Text>
             </View>
-          </TouchableOpacity>
+          </TouchableOpacity>}
         </View>
         {/* <Button className="" mode='contained' 
           onPress={() => navigation.navigate('Home')}>Start!</Button> */}

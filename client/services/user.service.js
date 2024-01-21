@@ -37,14 +37,14 @@ class UserService {
       return false
     }
 
-    user.roomCode = res.data.code;
+    user.roomCode = res.data.roomCode;
     console.log(user, "NEW USER NEW CODE");
     try {
       // console.log(user);
-      await SecureStore.setItemAsync("user", JSON.stringify(user.data));
+      await SecureStore.setItemAsync("user", JSON.stringify(user));
       return true;
     } catch (error) {
-      console.error("couldnt save data :(");
+      console.error("couldnt save data :(((((", error);
       return false;
     }
     // join creator of room

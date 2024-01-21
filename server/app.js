@@ -42,6 +42,12 @@ io.on('connection', (socket) => {
       console.log(`User ${userId} joined room ${roomCode}`);
   });
 
+  socket.on('finishedQuestions', ({ userId, roomCode }) => {
+    socket.join(roomCode);
+    socket.to(roomCode).emit('userFinishedQuestions', { userId, roomCode });
+    console.log(`User ${userId} finished in room ${roomCode}`);
+  });
+
   // Handling disconnect
   socket.on('disconnect', () => {
       console.log('User disconnected');

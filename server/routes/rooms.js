@@ -122,4 +122,33 @@ router.post('/leave', async (req, res) => {
   }
 });
 
+router.delete('/close', async (req, res) => {
+
+  const { roomCode } = req.body;
+
+  try {
+      // Find the room
+      const room = await Room.findOne({ code: roomCode });
+      if (!room) {
+          return res.status(404).send('Room not found');
+      }
+
+      // Get the list of user IDs from the room
+      const userIds = room.users;
+
+      // Delete the room
+      await Room.deleteOne({ code: roomCode });
+
+      // Update each user's roomCode to an empty string
+      await User.updateMany(
+          { _id: { $in: userIds } },
+          { $set: { roomCode: '' } }
+      );
+
+      res.status(200).send('Room deleted and users updated');
+  } catch (error) {
+      res.status(500).json({ message: 'Server error' });
+  }
+});
+
 module.exports = router;

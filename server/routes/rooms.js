@@ -34,10 +34,10 @@ router.post('/create', async (req, res) => {
 
 // Get the room and all users in the room
 router.get('/:code', async (req, res) => {
-  const code = req.params.code
+  const roomCode = req.params.code
 
   try {
-      const room = await Room.findOne({ code: code }).populate('users').exec();
+      const room = await Room.findOne({ code: roomCode }).populate('users').exec();
       if (!room) {
           return res.status(404).send('Room not found');
       }
@@ -49,7 +49,7 @@ router.get('/:code', async (req, res) => {
 });
 
 router.post('/join', async (req, res) => {
-  const { code, userId } = req.body;
+  const { roomCode, userId } = req.body;
 
   try {
       // Validate that the user exists
@@ -60,7 +60,7 @@ router.post('/join', async (req, res) => {
 
       
       // Find the room and add the user to it
-      const room = await Room.findOne({ code: code });
+      const room = await Room.findOne({ code: roomCode });
       if (!room) {
         return res.status(404).send('Room not found');
       }
@@ -73,7 +73,7 @@ router.post('/join', async (req, res) => {
           room.users.push(userObjectId);
           await room.save();
 
-          userExists.roomCode = code;
+          userExists.roomCode = roomCode;
           await userExists.save();
 
           res.status(200).send('User added to room');

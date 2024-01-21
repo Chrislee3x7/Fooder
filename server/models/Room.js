@@ -18,6 +18,10 @@ const RoomSchema = new mongoose.Schema({
         type: Boolean,
         required: true,
         default: false
+    },
+    finishedUsers: {
+        type: Number,
+        default: 0
     }
 });
 

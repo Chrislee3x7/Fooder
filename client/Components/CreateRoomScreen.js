@@ -1,15 +1,15 @@
 import { NavigationContainer } from '@react-navigation/native';
 import React, { useState } from 'react';
-import { View, TouchableOpacity } from 'react-native';
+import { View, TouchableOpacity, Image } from 'react-native';
 import { Button, Text, TextInput, Icon } from 'react-native-paper';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import UserService from '../services/user.service';
 
 const CreateRoomScreen = ({ navigation }) => {
+  
+  const insets = useSafeAreaInsets();
 
   const [username, setUsername] = useState('');
-
-  const insets = useSafeAreaInsets();
 
   const onStartRoomPressed = async () => {
     // first create a user
@@ -18,9 +18,13 @@ const CreateRoomScreen = ({ navigation }) => {
     }
     await UserService.createUser(username);
     // create a room and join current user
-    await UserService.createRoom();
+    const roomCode = await UserService.createRoom();
+    if (!roomCode) {
+      return;
+    }
+    console.log("About to navigate to lobby", roomCode);
 
-    // navigation.navigate('Lobby');
+    navigation.navigate('Lobby', {roomCode: roomCode, isRoomCreator: true});
   }
 
   return (
@@ -35,10 +39,18 @@ const CreateRoomScreen = ({ navigation }) => {
           <Text>Go Back</Text>
 
         </TouchableOpacity>
+        
+        <View className="flex h-1/2 justify-center items-center">
+          <Image
+            resizeMode='contain'
+            style={{width: 300, height: 100}}
+            source={require('../assets/AppLogo.png')}
+          />
+        </View>
 
       </View>
       <View className="px-8 justify-center grow">
-        <View className="mb-4 ml-4 mr-4">
+        <View className="mb-4 mx-2 bg-white pb-4 pt-3 px-4 rounded-2xl">
           <TextInput
             autoCapitalize="none"
             blurOnSubmit
@@ -51,6 +63,8 @@ const CreateRoomScreen = ({ navigation }) => {
         </View>
         <View className="justify-center">
           <Button className="my-4 mx-2" mode='contained'
+            style={{backgroundColor: '#EFEFA7', padding: 8, justifyContent: 'center'}} 
+            labelStyle={{color: '#000000', fontSize: 16}}
             onPress={() => onStartRoomPressed()}>Start Room</Button>
         </View>
       </View>

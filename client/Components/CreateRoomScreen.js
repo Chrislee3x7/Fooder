@@ -6,10 +6,10 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import UserService from '../services/user.service';
 
 const CreateRoomScreen = ({ navigation }) => {
+  
+  const insets = useSafeAreaInsets();
 
   const [username, setUsername] = useState('');
-
-  const insets = useSafeAreaInsets();
 
   const onStartRoomPressed = async () => {
     // first create a user
@@ -18,9 +18,13 @@ const CreateRoomScreen = ({ navigation }) => {
     }
     await UserService.createUser(username);
     // create a room and join current user
-    await UserService.createRoom();
+    const roomCode = await UserService.createRoom();
+    if (!roomCode) {
+      return;
+    }
+    console.log("About to navigate to lobby", roomCode);
 
-    // navigation.navigate('Lobby');
+    navigation.navigate('Lobby', {roomCode: roomCode, isRoomCreator: true});
   }
 
   return (

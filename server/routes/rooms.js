@@ -85,4 +85,41 @@ router.post('/join', async (req, res) => {
   }
 });
 
+router.post('/leave', async (req, res) => {
+  const { roomCode, userId } = req.body;
+
+  try {
+      // Validate that the user exists
+      const userExists = await User.findById(userId);
+      if (!userExists) {
+          return res.status(404).send('User not found');
+      }
+
+      
+      // Find the room and add the user to it
+      const room = await Room.findOne({ code: roomCode });
+      if (!room) {
+        return res.status(404).send('Room not found');
+      }
+      
+
+      const userObjectId = new mongoose.Types.ObjectId(userId);
+
+      // Check if the user is already in the room, then update both room and user
+      if (room.users.includes(userObjectId)) {
+          room.users.remove(userObjectId);
+          await room.save();
+
+          userExists.roomCode = "";
+          await userExists.save();
+
+          res.status(200).send('User removed from room');
+      } else {
+          res.status(400).send('User not in room');
+      }
+  } catch (error) {
+    res.status(500).json({ message: 'Server error' });
+  }
+});
+
 module.exports = router;

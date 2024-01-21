@@ -32,10 +32,21 @@ mongoose.connect(process.env.MONGO_URI, {
   .then(() => console.log('Connected to MongoDB'))
   .catch((err) => console.error(err));
 
-const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
-
-// Socket.io Connection
 io.on('connection', (socket) => {
   console.log('A user connected');
+
+  // Joining a room
+  socket.on('joinRoom', ({ userId, roomCode }) => {
+      socket.join(roomCode);
+      socket.to(roomCode).emit('userJoined', { userId, roomCode });
+      console.log(`User ${userId} joined room ${roomCode}`);
+  });
+
+  // Handling disconnect
+  socket.on('disconnect', () => {
+      console.log('User disconnected');
+  });
 });
+
+const PORT = process.env.PORT || 5000;
+server.listen(PORT, () => console.log(`Server running on port ${PORT}`));

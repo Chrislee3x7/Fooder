@@ -8,54 +8,27 @@ import { bool } from 'prop-types';
 // import Icon from '@mdi/react';
 // import { mdiCurrencyUsd } from '@mdi/js';
 
-const VetoScreen = ({ navigation }) => {
+const VetoScreen = ({ route, navigation }) => {
   
   const insets = useSafeAreaInsets();
-
-  preVeto = new Map();
-  const [dist, setDist] = React.useState('');
   
+  const restaurants = route.params.restaurants;
 
-  let vetos = [{restaurant: "chipotle"}, {restaurant: "chipotle"}, {restaurant: "chipotle"}, {restaurant: "leos mom"}, {restaurant: "chris mom"} ];
-  let hasVetoedArr = [{id: 0, hasVetoed: false}, {id: 1, hasVetoed: false}, {id: 2, hasVetoed: false}, {id: 3, hasVetoed: false}, {id: 4, hasVetoed: false}]
-  const [vetoed, setVetoed] = React.useState(hasVetoedArr);
-  
+  const [toggleState, setToggleState] = useState(
+    restaurants.reduce((acc, restaurant) => {
+      acc[restaurant.id] = true;
+      return acc;
+    }, {})
+  );
 
-  const createMap = () => {
-    preVeto.set(1, "chipotle");
-    preVeto.set(2, "chipotle");
-    preVeto.set(3, "chipotle");
-    preVeto.set(4, "chipotle");
-    preVeto.set(5, "chipotle");
-    preVeto.set(6, "chipotle");
-    preVeto.set(7, "chipotle");
-    preVeto.set(8, "chipotle");
-    preVeto.set(9, "chipotle");
-    preVeto.set(10, "chipotle");
-    
-    vetos.append("chipotle");
-    vetos.append("chipotle");
-    vetos.append("chipotle");
-    vetos.append("chipotle");
-    vetos.append("chipotle");
-    vetos.append("chipotle");
-    vetos.append("chipotle");
-    vetos.append("chipotle");
-    vetos.append("chipotle");
-    vetos.append( "chipotle");
-
-    console.log("e")
-    console.log(vetos);
-
-    React.useEffect(() => {
-      createMap();
-    }, []);
-  }
+  const handleToggle = (id) => {
+    setToggleState(prevState => ({ ...prevState, [id]: !prevState[id] }));
+  };
 
   const onContinuePress = async () => {
-    
-    navigation.navigate('Swipe');
-
+    const selectedRestaurants = restaurants.filter(restaurant => toggleState[restaurant.id]);
+    onSubmit(selectedRestaurants); // Assuming onSubmit is a prop to handle the submission
+    // navigation.navigate('Swipe');
   }
 
   function handleToggleVetoed(id, nextSeen) {
@@ -83,12 +56,22 @@ const VetoScreen = ({ navigation }) => {
       <View className="px-8 grow">
         <Text className="mb-4 mx-4 text-center" variant="headlineLarge">Veto 3</Text>
         <View>
-        {vetos.map( a => (
+        {/* {vetos.map( a => (
           <Checkbox.Item label={a.restaurant} status={vetoed ? 'checked' : 'unchecked'} onPress={() => {
             setVetoed(!vetoed);
           }}/>
           )
-        )}
+        )} */}
+        {restaurants.map(restaurant => (
+        
+        <TouchableOpacity
+          key={restaurant.id}
+          style={{backgroundColor: toggleState[restaurant.id] ? 'blue' : 'yellow'}}
+          // style={[styles.item, toggleState[restaurant.id] ? styles.itemOn : styles.itemOff]}
+          onPress={() => handleToggle(restaurant.id)}>
+          <Text>{restaurant.name}</Text>
+        </TouchableOpacity>
+      ))}
         </View>
       </View>
       <View className="px-8 py-4">

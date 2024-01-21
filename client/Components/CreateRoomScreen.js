@@ -10,12 +10,14 @@ const CreateRoomScreen = ({ navigation }) => {
   const insets = useSafeAreaInsets();
 
   const [username, setUsername] = useState('');
+  const [buttonEnabled, setButtonEnabled] = useState(true);
 
   const onStartRoomPressed = async () => {
     // first create a user
     if (!username) {
       return;
     }
+    setButtonEnabled(false);
     await UserService.createUser(username);
     // create a room and join current user
     const roomCode = await UserService.createRoom();
@@ -25,6 +27,7 @@ const CreateRoomScreen = ({ navigation }) => {
     console.log("About to navigate to lobby", roomCode);
 
     navigation.navigate('Lobby', {username: username,roomCode: roomCode, isRoomCreator: true});
+    setButtonEnabled(true);
   }
 
   return (
@@ -61,12 +64,11 @@ const CreateRoomScreen = ({ navigation }) => {
             label='Username'
           />
         </View>
-        <View className="justify-center">
-          <Button className="shadow-md my-4 mx-2" mode='contained'
-            style={{backgroundColor: '#EFEFA7', padding: 8, justifyContent: 'center'}} 
-            labelStyle={{color: '#000000', fontSize: 16}}
-            onPress={() => onStartRoomPressed()}>Start Room</Button>
-        </View>
+        <TouchableOpacity disabled={!buttonEnabled} onPress={() => onStartRoomPressed()}>
+          <View className="shadow-md mx-2 my-4 p-4 rounded-2xl" style={{backgroundColor: '#EFEFA7'}}>
+            <Text className="text-center" variant="titleMedium">Start Room</Text>
+          </View>
+        </TouchableOpacity>
       </View>
 
     </View>

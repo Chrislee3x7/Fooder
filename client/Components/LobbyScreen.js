@@ -40,8 +40,6 @@ const LobbyScreen = ({ route, navigation }) => {
   }
 
   const onGoPress = () => {
-    console.log("GO PRESSEd")
-    console.log(socket)
     socket.emit('startRoom', roomCode)
     // navigation.navigate('DistancePrice');
   }
@@ -57,7 +55,7 @@ const LobbyScreen = ({ route, navigation }) => {
       });
       socket.on('roomStarted', () => {
         console.log("room started!!!!!!!!!", );
-        navigation.navigate('Questions');
+        navigation.navigate('DistancePrice');
       });
     }
 

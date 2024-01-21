@@ -109,6 +109,24 @@ class UserService {
   async getAnswer(questionId) {
     return await SecureStore.getItemAsync(questionId);
   }
+
+  async getRestaurants(location, distance, price) {
+    console.log("location in get res", location);
+    console.log(price);
+    const obj = {
+      longitude: location.coords.longitude, 
+      latitude: location.coords.latitude, 
+      radius: distance, 
+      price: price
+    };
+    return await axios.post(`${API_URL}/yelp/restaurants`, 
+      {
+        longitude: location.coords.longitude, 
+        latitude: location.coords.latitude, 
+        radius: distance, 
+        prices: price
+      }); 
+  }
 }
 
 export default new UserService();

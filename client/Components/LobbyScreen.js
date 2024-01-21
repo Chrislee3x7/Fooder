@@ -10,17 +10,16 @@ const LobbyScreen = ({ route, navigation }) => {
   const insets = useSafeAreaInsets();
 
   const isRoomCreator = route.params.isRoomCreator;
-
   const [currentUsers, setCurrentUsers] = useState([]);
   // let users = [{username: "immevol"}, {username: "kinglionleo8"}, {username: "nova2011"}, {username: "PeppyCloud3x7"}];
 
   const roomCode = route.params.roomCode;
 
   const fetchRoomUsers = async () => {
+    console.log("!!!! ROOM CODE", roomCode)
     const res = await UserService.getRoom(roomCode);
     const users = res.data.users;
     setCurrentUsers(users);
-    // console.log(res.data.users);
   }
 
   useEffect(() => {

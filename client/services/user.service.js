@@ -7,22 +7,25 @@ API_URL = "https://fooder-rl87.onrender.com/api";
 class UserService {
   
   async createUser(username) {
+    let user;
     try {
-      const user = await axios.post(`${API_URL}/user/create`, { username });
+      const res = await axios.post(`${API_URL}/user/create`, { username });
+      user = res.data
     } catch (error) {
       console.log(error);
     }
-    console.log(user.data.username, user.data._id, user.data.roomCode);
+    // console.log(user)
+    console.log(user.username, user._id, user.roomCode);
     if (!user) {
       console.error('User not created');
       return;
     }
     try {
       // console.log(user);
-      await SecureStore.setItemAsync("user", JSON.stringify(user.data));
+      await SecureStore.setItemAsync("user", JSON.stringify(user));
       return true;
     } catch (error) {
-      console.error("couldnt save data :(");
+      console.error("couldnt save data :( HERE");
       return false;
       // Error saving data
     }
@@ -33,6 +36,7 @@ class UserService {
     const res = await axios.post(`${API_URL}/room/create`);
     console.log("in create room")
     console.log("!!!! DATA", res.data)
+    
     const value = await SecureStore.getItemAsync('user');
     const user = JSON.parse(value);
     
@@ -42,20 +46,10 @@ class UserService {
       return false;
     }
 
-    user.roomCode = res.data.code;
-    try {
-      // console.log(user);
-      await SecureStore.setItemAsync("user", JSON.stringify(user));
-      console.log(user, "user before join!!!!");
-      await this.joinRoom();
-    } catch (error) {
-      console.error("couldnt save data :(((((", error);
-      return false;
-    }
-    // join creator of room
+    await this.joinRoom(roomCode);
   }
 
-  async joinRoom() {
+  async joinRoom(roomCode) {
     try {
       const value = await SecureStore.getItemAsync('user');
       const user = JSON.parse(value);
@@ -64,6 +58,17 @@ class UserService {
         // We have data!!
         console.log(user);
       }
+      user.roomCode = roomCode
+      // save user with roomCode
+      try {
+        // console.log(user);
+        await SecureStore.setItemAsync("user", JSON.stringify(user));
+        console.log(user, "user before join!!!!");
+      } catch (error) {
+        console.error("couldnt save data :(((((", error);
+        return false;
+      }
+      // try to join the room
       const roomCode = user.roomCode
       const userId = user._id
       const res = await axios.post(`${API_URL}/room/join`, { roomCode: roomCode, userId: userId });

@@ -28,8 +28,7 @@ const VetoScreen = ({ route, navigation }) => {
 
   const onContinuePress = async () => {
     const selectedRestaurants = restaurants.filter(restaurant => toggleState[restaurant.id]);
-    onSubmit(selectedRestaurants); // Assuming onSubmit is a prop to handle the submission
-    // navigation.navigate('Swipe');
+    navigation.navigate('Swipe', {restaurants});
   }
 
   function handleToggleVetoed(id, nextSeen) {
@@ -53,7 +52,7 @@ const VetoScreen = ({ route, navigation }) => {
 
       </View>
       
-      <View className="px-8 grow">
+      <View className="px-8 h-1/2">
         <Text className="mb-4 mx-4 text-center" variant="headlineLarge">Veto 3</Text>
         <ScrollView
           // style={{marginBottom: 40}}>

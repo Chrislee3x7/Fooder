@@ -127,6 +127,15 @@ class UserService {
         prices: price
       }); 
   }
+
+  async getGptQuestions(businessIds) {
+    console.log(businessIds);
+    return await axios.post(`${API_URL}/gpt/question`, {businessIds});
+  }
+
+  async getGptResult(answers, userPrompt, assistantPrompt) {
+    return await axios.post(`${API_URL}/gpt/answer`, { answers, userPrompt, assistantPrompt })
+  }
 }
 
 export default new UserService();
